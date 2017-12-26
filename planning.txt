@@ -1,0 +1,22 @@
+The basic idea is to paint the last n seconds, in 60-second lines, showing dots
+if the timer is on, nothing (a space) if it's off, and showing an x (or
+something) when the counter is incremented.
+
+The screen is repainted every second. Various stats appear below the 60-second
+lines. The time is shown as well.
+
+As to classes, it seems to me not many are needed. I guess I can see a
+SecDisplay class (for the display of the seconds) and a Stats class (for the
+calculation and display of the stats). In addition, a Runner class, which
+interprets the commands.
+
+So far I've had no need for different categories of classes. Therefore, in the
+Runner class, I'll just have start, stop (which is like pause if you don't
+clear), clear (which is like restart), and quit (the program).
+
+Classes:
+* Counter
+* Stats (a subclass of Counter, so that a Stats obj has access to the Counter)
+* Dots (ditto)
+
+The dots are 
