@@ -1,4 +1,4 @@
-# #!/usr/bin/env -w ruby
+#!/usr/bin/env -w ruby
 
 require 'colorize'
 require 'colorized_string'
@@ -63,7 +63,7 @@ class Counter
     print "Command: "
     k = GetKey.getkey
     if k
-      k = ((k == 13 || k == 32) ? "#" : k.chr)
+      k = ((k == 13 || k == 10 || k == 32) ? "#" : k.chr)
       puts k
     end
     record_user_input(k)
@@ -209,14 +209,15 @@ class Stats
   end
 
   def stats_string(dots_string)
-    puts "yo!".black.on_light_yellow
     if @count > 0
       /(.{70})\Z/m.match(dots_string)
       last_minute_count = $&.scan(/#/).length
-      (time_now.strftime("%l:%M:%S") +
-      "         Total: #{@count}           " +
-      "Avg: #{sprintf("%5.2f",@count/((@count + @dot_count)/60.0))}              " +
-      "Last: #{last_minute_count}")
+      stats =
+        (time_now.strftime("%l:%M:%S") +
+        "         Total: #{@count}           " +
+        "Avg: #{sprintf("%5.2f",@count/((@count + @dot_count)/60.0))}             " +
+        "Last: #{last_minute_count} ")
+      return (stats.respond_to?(:black) ? stats.black.on_light_yellow : stats)
     end
   end
 
