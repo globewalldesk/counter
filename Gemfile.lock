@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.8.1)
+    tty-color (0.4.2)
 
 PLATFORMS
   ruby
@@ -9,6 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   colorize (= 0.8.1)
+  tty-color
 
 RUBY VERSION
    ruby 2.3.3p222

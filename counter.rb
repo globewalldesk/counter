@@ -2,7 +2,7 @@
 
 require 'colorize'
 require 'colorized_string'
-require 'win32console'
+require 'tty-color'
 
 module GetKey
   # Check if Win32API is accessible or not
@@ -117,8 +117,8 @@ class Dots
     # Calculate num seconds so far this minute.
     now = time_now
     secs_this_minute = now.sec.to_i
-    # Append '-' minus one.
-    @dots_string += now.strftime("\n%l:%M %P ") + ('*' * secs_this_minute)
+    # Append '*' minus one.
+    @dots_string += now.strftime("\n%l:%M %P ") + ('*' * (secs_this_minute - 1) )
   end
 
   def prelim_string_prep
@@ -218,7 +218,7 @@ class Stats
         "         Total: #{@count}           " +
         "Avg: #{sprintf("%5.2f",@count/((@count + @dot_count)/60.0))}             " +
         "Last: #{last_minute_count} ")
-      return (stats.respond_to?(:black) ? stats.black.on_light_yellow : stats)
+      return (TTY::Color.color? ? stats.black.on_light_yellow : stats)
     end
   end
 
