@@ -2,6 +2,7 @@
 
 require 'colorize'
 require 'colorized_string'
+require 'win32console'
 
 module GetKey
   # Check if Win32API is accessible or not
