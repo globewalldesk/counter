@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
-gem 'colorize', '0.8.1'
-gem 'tty-color'
+gem 'pastel', '0.7.2'

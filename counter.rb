@@ -1,8 +1,6 @@
 #!/usr/bin/env -w ruby
 
-require 'colorize'
-require 'colorized_string'
-require 'tty-color'
+require 'pastel'
 
 module GetKey
   # Check if Win32API is accessible or not
@@ -52,6 +50,9 @@ class Counter
   def render
     while @running
       system("clear") || system("cls")
+      puts Pastel.new.black.on_yellow(
+          "Counter || <Enter> to increment || <s>tart <p>ause <u>ndo <q>uit".ljust(69)
+      )
       puts @dots.dots_string
       puts @stats.stats_string(@dots.dots_string)
       prompt
@@ -79,15 +80,15 @@ class Counter
     elsif char === 'p' && ! @paused
       @paused = true
       @dots.add_pause
+    elsif char === 'u' && ! @paused
+      #@dots.undo_last
+      @stats.decrement
     elsif /[ps]/ =~ char && @paused
       @paused = false
       @dots.add_unpause
     elsif ! @paused
       @dots.add_dot
       @stats.increment_dots
-    elsif char == 'u'
-      @dots.undo_last
-      @stats.decrement
     else
       # If no action, save an "empty" second to @dots_string.
       @dots.add_empty
@@ -205,6 +206,7 @@ class Stats
   end
 
   def decrement
+    puts "hi"
     @count -= 1
     @dot_count += 1
   end
@@ -218,7 +220,7 @@ class Stats
         "         Total: #{@count}           " +
         "Avg: #{sprintf("%5.2f",@count/((@count + @dot_count)/60.0))}             " +
         "Last: #{last_minute_count} ")
-      return (TTY::Color.color? ? stats.black.on_light_yellow : stats)
+      return Pastel.new.black.on_yellow(stats)
     end
   end
 
