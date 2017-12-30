@@ -270,7 +270,7 @@ class Stats
     else
       mins = (es / 60.0).to_i.to_s
       secs = (es % 60.0).to_i.to_s
-      secs = "0" + secs.to_s if secs < 10
+      secs = "0" + secs.to_s if secs.to_i < 10
       mins + ":" + secs
     end
   end
